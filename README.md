@@ -4,86 +4,86 @@
 ![TypeScript 6](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)
 ![Vite 8](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
 ![CSS Modules](https://img.shields.io/badge/Styles-CSS_Modules-663399)
-![ES / EN](https://img.shields.io/badge/Idiomas-ES_%2F_EN-A7CEEE)
-![Frontend](https://img.shields.io/badge/Alcance-Frontend-191B1E)
+![ES / EN](https://img.shields.io/badge/Languages-ES_%2F_EN-A7CEEE)
+![Frontend](https://img.shields.io/badge/Scope-Frontend-191B1E)
 
-Landing editorial de una marca ficticia de moda cotidiana. Incluye un catálogo de 12 productos, tres looks, fichas de producto y un carrito de demostración con interfaz en español e inglés.
+An editorial landing page for a fictional everyday fashion brand. It includes a catalog of 12 products, three styled looks, product details, and a demo shopping cart with Spanish and English interfaces.
 
-La aplicación usa React y TypeScript, datos locales y persistencia en el navegador. Vite genera un sitio estático en `dist/`.
+The application uses React and TypeScript, local data, and browser storage. Vite builds a static site in `dist/`.
 
-> **Proyecto conceptual:** los productos y precios son ficticios. «Comprar» muestra un aviso y conserva el carrito. No se realizan pedidos ni cobros; no hay backend, autenticación, stock, tallas ni variantes.
+> **Concept project:** products and prices are fictional. “Buy” displays a notice and keeps the cart intact. No orders or payments are processed; there is no backend, authentication, inventory, sizing, or product variants.
 
-## Contenido
+## Contents
 
-- [Funcionalidades](#funcionalidades)
-- [Stack y requisitos](#stack-y-requisitos)
-- [Desarrollo local](#desarrollo-local)
-- [Arquitectura](#arquitectura)
-- [Estructura del proyecto](#estructura-del-proyecto)
-- [Modelo de datos](#modelo-de-datos)
-- [Estado y persistencia](#estado-y-persistencia)
-- [Flujo de fichas y carrito](#flujo-de-fichas-y-carrito)
-- [Idiomas y contenido](#idiomas-y-contenido)
-- [Estilos, imágenes y movimiento](#estilos-imágenes-y-movimiento)
-- [Build y despliegue](#build-y-despliegue)
-- [Verificación](#verificación)
-- [Mantenimiento y documentación](#mantenimiento-y-documentación)
+- [Features](#features)
+- [Stack and requirements](#stack-and-requirements)
+- [Local development](#local-development)
+- [Architecture](#architecture)
+- [Project structure](#project-structure)
+- [Data model](#data-model)
+- [State and persistence](#state-and-persistence)
+- [Product and cart flow](#product-and-cart-flow)
+- [Languages and content](#languages-and-content)
+- [Styles, images, and motion](#styles-images-and-motion)
+- [Build and deployment](#build-and-deployment)
+- [Verification](#verification)
+- [Maintenance](#maintenance)
 
-## Funcionalidades
+## Features
 
-| Zona | Comportamiento actual |
+| Area | Current behavior |
 | --- | --- |
-| Cabecera | Anclas de navegación, selector ES/EN y contador del carrito. Menú hamburguesa móvil con panel lateral y enlaces del creador. |
-| Hero | Presentación de The Daily Edit / Vol. 01, fotografía editorial, retrato superpuesto y acceso a la colección. |
-| Colección | 12 productos, cuatro categorías y filtro «Todo». Fotografía y botón circular abren la ficha compartida. |
-| Looks | Tres conjuntos de cuatro productos, selectores visibles, puntos sobre la fotografía y lista desplegable de prendas. |
-| Ficha | Fotografía, nombre, concepto, color, precio en MXN y acción para añadir al carrito. |
-| Carrito | Cantidades, eliminación por línea, subtotal, estado vacío y persistencia local. «Comprar» abre el aviso conceptual. |
-| El club | Relato de marca, reutilización de las tres editoriales y regreso a la colección. |
-| Footer | Navegación interna, aviso conceptual y enlaces a LinkedIn, GitHub y portafolio del creador. |
+| Header | Section anchors, ES/EN switcher, and cart counter. Mobile hamburger menu with a side panel and creator links. |
+| Hero | The Daily Edit / Vol. 01 introduction, editorial photography, an overlapping portrait, and a link to the collection. |
+| Collection | 12 products, four categories, and an “All” filter. Both the photograph and the circular button open the shared product dialog. |
+| Looks | Three outfits with four products each, visible selectors, image hotspots, and an expandable garment list. |
+| Product details | Photograph, name, concept, color, price in MXN, and an add-to-cart action. |
+| Cart | Quantities, removal of individual items, subtotal, empty state, and local persistence. “Buy” opens the demo purchase notice. |
+| The club | Brand story, reuse of the three editorial images, and a link back to the collection. |
+| Footer | Internal navigation, concept notice, and links to the creator's LinkedIn, GitHub, and portfolio. |
 
-Las cinco secciones son Hero, Colección, Looks, El club y Footer. Cabecera, ficha y carrito son componentes compartidos. La navegación utiliza `#top`, `#collection`, `#looks` y `#club`; no hay rutas adicionales ni React Router.
+The five page sections are Hero, Collection, Looks, The club, and Footer. Header, product dialog, and cart are shared components. Navigation uses `#top`, `#collection`, `#looks`, and `#club`; there are no additional routes or React Router.
 
-## Stack y requisitos
+## Stack and requirements
 
-Versiones resueltas en [package-lock.json](./package-lock.json):
+Versions resolved in [package-lock.json](./package-lock.json):
 
-| Tecnología | Versión | Responsabilidad |
+| Technology | Version | Responsibility |
 | --- | --- | --- |
-| React / React DOM | 19.3.0 | Componentes, hooks y contextos de idioma y carrito. |
-| TypeScript | 6.0.3 | Tipos y comprobación durante el build. |
-| Vite | 8.3.4 | Servidor de desarrollo y compilación estática. |
-| Plugin React de Vite | 6.1.2 | Integración de React y Fast Refresh. |
-| Oxlint | 1.87.0 | Análisis estático con reglas de React, TypeScript y Oxc. |
-| CSS Modules + CSS global | — | Estilos de componentes, tokens y animaciones. |
+| React / React DOM | 19.3.0 | Components, hooks, and locale and cart contexts. |
+| TypeScript | 6.0.3 | Types and build-time checking. |
+| Vite | 8.3.4 | Development server and static builds. |
+| Vite React plugin | 6.1.2 | React integration and Fast Refresh. |
+| Oxlint | 1.87.0 | Static analysis with React, TypeScript, and Oxc rules. |
+| CSS Modules + global CSS | — | Component styles, tokens, and animations. |
 
-- **Node.js:** `^20.19.0 || >=22.12.0`, según los requisitos de Vite, su plugin de React y Oxlint en el lockfile.
-- **npm:** gestor usado por los scripts y el lockfile.
-- **Navegador:** JavaScript habilitado y soporte para `<dialog>`, `inert` y las APIs web utilizadas. No se incluyen polyfills.
+- **Node.js:** `^20.19.0 || >=22.12.0`, as required by Vite, its React plugin, and Oxlint in the lockfile.
+- **npm:** the package manager used by the scripts and lockfile.
+- **Browser:** JavaScript enabled, with support for `<dialog>`, `inert`, and the web APIs used by the application. No polyfills are included.
 
-No requiere variables de entorno. El estado se gestiona con hooks y Context; el movimiento usa CSS y APIs del navegador, sin dependencias adicionales.
+No environment variables are required. State is managed with hooks and Context; motion uses CSS and browser APIs without additional dependencies.
 
-## Desarrollo local
+## Local development
 
-Ejecutar desde la raíz del proyecto:
+Run from the project root:
 
 ```bash
 npm ci
 npm run dev
 ```
 
-Abrir la URL que indique Vite en la terminal. `npm ci` instala las versiones del lockfile. Al modificar dependencias, usar `npm install` y conservar los cambios en `package.json` y `package-lock.json`.
+Open the URL printed by Vite in the terminal. `npm ci` installs the versions in the lockfile. When changing dependencies, use `npm install` and keep the changes to both `package.json` and `package-lock.json`.
 
-| Comando | Acción |
+| Command | Action |
 | --- | --- |
-| `npm run dev` | Inicia Vite con recarga durante el desarrollo. |
-| `npm run build` | Ejecuta `tsc -b && vite build` y genera `dist/`. |
-| `npm run lint` | Ejecuta Oxlint con [.oxlintrc.json](./.oxlintrc.json). |
-| `npm run preview` | Sirve localmente el último build; requiere compilar antes. |
+| `npm run dev` | Starts Vite with live updates during development. |
+| `npm run build` | Runs `tsc -b && vite build` and generates `dist/`. |
+| `npm run lint` | Runs Oxlint with [.oxlintrc.json](./.oxlintrc.json). |
+| `npm run preview` | Serves the latest build locally; build the project first. |
 
-## Arquitectura
+## Architecture
 
-`main.tsx` monta `App` dentro de `StrictMode`. `App` envuelve la página con `LocaleProvider` y `CartProvider`; `Page` coordina la ficha seleccionada y la apertura del carrito.
+`main.tsx` mounts `App` inside `StrictMode`. `App` wraps the page with `LocaleProvider` and `CartProvider`; `Page` coordinates the selected product and whether the cart is open.
 
 ```mermaid
 flowchart TD
@@ -95,40 +95,40 @@ flowchart TD
     page --> sections["Hero / Collection / Looks / Club / Footer"]
     page --> productDialog["ProductDialog"]
     page --> cartPanel["CartPanel"]
-    catalog["products.ts / looks.ts"] -.->|"Datos y relaciones"| sections
-    catalog -.->|"Productos y precios"| productDialog
-    catalog -.->|"Productos y precios"| cartPanel
-    copy["messages.ts"] -.->|"Textos ES y EN"| localeProvider
+    catalog["products.ts / looks.ts"] -.->|"Data and relationships"| sections
+    catalog -.->|"Products and prices"| productDialog
+    catalog -.->|"Products and prices"| cartPanel
+    copy["messages.ts"] -.->|"ES and EN copy"| localeProvider
     localeProvider <-->|"daily-club-locale"| storage["localStorage"]
     cartProvider <-->|"daily-club-cart"| storage
 ```
 
-Las flechas continuas entre componentes representan composición. Los contextos exponen textos, formato monetario y operaciones del carrito a sus descendientes. Filtros, selección de looks y apertura del menú permanecen como estado local.
+Solid arrows between components represent composition. The contexts expose copy, currency formatting, and cart operations to their descendants. Filters, look selection, and menu visibility remain local state.
 
-## Estructura del proyecto
+## Project structure
 
 ```text
 .
-├── public/images/              # 12 productos, 3 looks y 1 retrato WebP
+├── public/images/              # 12 products, 3 looks, and 1 portrait in WebP
 ├── src/
 │   ├── cart/
-│   │   ├── CartProvider.tsx    # Estado y operaciones del carrito
-│   │   └── storage.ts         # Validación y persistencia
+│   │   ├── CartProvider.tsx    # Cart state and operations
+│   │   └── storage.ts         # Validation and persistence
 │   ├── components/
 │   │   ├── Header.tsx
 │   │   ├── ProductCard.tsx
 │   │   ├── ProductDialog.tsx
 │   │   ├── CartPanel.tsx
-│   │   ├── ProfileLinks.tsx    # URLs e iconos del creador
-│   │   ├── useModalDialog.ts   # Apertura nativa y ciclo de foco
+│   │   ├── ProfileLinks.tsx    # Creator URLs and icons
+│   │   ├── useModalDialog.ts   # Native dialog opening and focus cycling
 │   │   └── *.module.css
 │   ├── data/
 │   │   ├── products.ts
 │   │   └── looks.ts
 │   ├── i18n/
 │   │   ├── LocaleProvider.tsx
-│   │   └── messages.ts         # Textos ES/EN y descripciones de producto
-│   ├── motion/useReveal.ts    # IntersectionObserver compartido
+│   │   └── messages.ts        # ES/EN copy and product descriptions
+│   ├── motion/useReveal.ts    # Shared IntersectionObserver
 │   ├── sections/
 │   │   ├── Hero.tsx
 │   │   ├── Collection.tsx
@@ -142,21 +142,20 @@ Las flechas continuas entre componentes representan composición. Los contextos 
 │   ├── types.ts
 │   ├── App.tsx
 │   └── main.tsx
-├── index.html                 # Entrada y Google Fonts
+├── index.html                 # Entry point and Google Fonts
 ├── vite.config.ts
 ├── tsconfig*.json
 ├── .oxlintrc.json
 ├── package.json
 ├── package-lock.json
-├── Daily-Club-*.md             # Documentación interna de desarrollo
 └── README.md
 ```
 
-## Modelo de datos
+## Data model
 
-El catálogo se define una sola vez en [products.ts](./src/data/products.ts). Los looks lo referencian por ID; nombres, colores y descripciones se resuelven desde `messages.ts`.
+The catalog is defined once in [products.ts](./src/data/products.ts). Looks reference products by ID; names, colors, and descriptions are resolved from `messages.ts`.
 
-Esquema de los tipos principales de [types.ts](./src/types.ts) y [storage.ts](./src/cart/storage.ts):
+Main type definitions from [types.ts](./src/types.ts) and [storage.ts](./src/cart/storage.ts):
 
 ```ts
 type CategoryId = 'tops' | 'layers' | 'bottoms' | 'accessories'
@@ -166,9 +165,9 @@ type LookId = '01' | '02' | '03'
 type Product = {
   id: string
   category: CategoryId
-  price: number             // Importe ficticio en MXN
+  price: number             // Fictional amount in MXN
   image: string | null
-  alternateImage?: string  // Otra foto de la misma prenda
+  alternateImage?: string  // Another photo of the same garment
 }
 
 type Look = {
@@ -183,36 +182,36 @@ type CartLine = {
 }
 ```
 
-Cada producto tiene un solo color y actualmente una sola fotografía. Ninguno utiliza todavía `alternateImage`.
+Each product has one color and currently one photograph. None uses `alternateImage` yet.
 
-| Categoría | IDs |
+| Category | IDs |
 | --- | --- |
-| `tops` — Camisetas y polos | P01, P02, P03 |
-| `layers` — Camisas y chaquetas | P04, P05, P06 |
-| `bottoms` — Pantalones | P07, P08, P09 |
-| `accessories` — Accesorios | P10, P11, P12 |
+| `tops` — T-shirts and polos | P01, P02, P03 |
+| `layers` — Shirts and jackets | P04, P05, P06 |
+| `bottoms` — Trousers | P07, P08, P09 |
+| `accessories` — Accessories | P10, P11, P12 |
 
-| Look | Productos referenciados |
+| Look | Referenced products |
 | --- | --- |
-| 01 — Café de paso | P01, P04, P07, P10 |
-| 02 — Lado B | P02, P05, P08, P11 |
-| 03 — Sin prisa | P03, P06, P09, P12 |
+| 01 — Coffee stop | P01, P04, P07, P10 |
+| 02 — B-side | P02, P05, P08, P11 |
+| 03 — No rush | P03, P06, P09, P12 |
 
-Los tres looks recorren los 12 productos sin duplicar sus objetos. El subtotal se deriva de `price × quantity`; los precios no se guardan en el carrito.
+The three looks cover all 12 products without duplicating product objects. The subtotal is derived from `price × quantity`; prices are not stored in the cart.
 
-## Estado y persistencia
+## State and persistence
 
-| Estado | Responsable | Persistencia |
+| State | Owner | Persistence |
 | --- | --- | --- |
-| Idioma | `LocaleProvider` | `daily-club-locale` en `localStorage`. |
-| Líneas del carrito | `CartProvider` | `daily-club-cart` en `localStorage`. |
-| Producto abierto y apertura del carrito | `Page` en `App.tsx` | Memoria. |
-| Filtro activo | `Collection` | Memoria. |
-| Look, transición y lista expandida | `Looks` | Memoria. |
-| Menú móvil abierto | `Header` | Memoria. |
-| Aviso conceptual | `CartPanel` | Memoria. |
+| Language | `LocaleProvider` | `daily-club-locale` in `localStorage`. |
+| Cart items | `CartProvider` | `daily-club-cart` in `localStorage`. |
+| Selected product and cart visibility | `Page` in `App.tsx` | In memory. |
+| Active filter | `Collection` | In memory. |
+| Look, transition, and expanded list | `Looks` | In memory. |
+| Mobile menu visibility | `Header` | In memory. |
+| Demo purchase notice | `CartPanel` | In memory. |
 
-Ejemplo del JSON almacenado en `daily-club-cart`:
+Example JSON stored in `daily-club-cart`:
 
 ```json
 [
@@ -221,91 +220,91 @@ Ejemplo del JSON almacenado en `daily-club-cart`:
 ]
 ```
 
-La lectura acepta IDs conocidos y cantidades enteras positivas. Descarta líneas inválidas y suma las válidas repetidas. Un JSON ilegible devuelve un carrito vacío. Si falla el almacenamiento, la interacción continúa en memoria.
+Loading accepts known IDs and positive integer quantities. Invalid entries are discarded, and valid duplicate entries are merged by adding their quantities. Unreadable JSON yields an empty cart. If storage fails, interactions continue in memory.
 
-Añadir un producto existente incrementa su cantidad. La cantidad mínima en la interfaz es 1; eliminar una línea tiene su propio control. Cambiar de idioma conserva carrito, filtro y look. Al recargar se restauran carrito e idioma; el resto vuelve a su estado inicial.
+Adding an existing product increases its quantity. The minimum quantity in the interface is 1; removing an item has a separate control. Switching languages preserves the cart, filter, and selected look. Reloading restores the cart and language; other state returns to its initial value.
 
-## Flujo de fichas y carrito
+## Product and cart flow
 
 ```mermaid
 stateDiagram-v2
     direction LR
-    state "Página" as page
-    state "Ficha de producto" as product
-    state "Carrito" as cart
-    state "Aviso conceptual sobre el carrito" as notice
+    state "Page" as page
+    state "Product details" as product
+    state "Cart" as cart
+    state "Demo notice over the cart" as notice
 
     [*] --> page
-    page --> product: Abrir desde Colección o Looks
-    product --> product: Añadir una unidad
-    product --> page: Cerrar o Escape
-    page --> cart: Abrir desde cabecera
-    cart --> cart: Cambiar cantidad o eliminar
-    cart --> notice: Comprar con artículos
-    notice --> cart: Seguir explorando o Escape
-    cart --> page: Cerrar o Escape
-    cart --> page: Explorar colección si está vacío
+    page --> product: Open from Collection or Looks
+    product --> product: Add one item
+    product --> page: Close or Escape
+    page --> cart: Open from header
+    cart --> cart: Change quantity or remove
+    cart --> notice: Buy with items in the cart
+    notice --> cart: Keep exploring or Escape
+    cart --> page: Close or Escape
+    cart --> page: Explore collection when empty
 ```
 
-- Ficha y carrito se excluyen mutuamente. Añadir desde la ficha actualiza el contador y mantiene la ficha abierta.
-- «Comprar» está deshabilitado sin artículos. El aviso conserva las líneas y el subtotal.
-- Los diálogos usan `showModal()` y `useModalDialog` para gestionar apertura y ciclo de foco con Tab. Al cerrar, el foco regresa al control que los abrió.
-- Mientras el aviso está abierto, el contenido del carrito lleva `inert`. Cerrar el aviso devuelve explícitamente el foco a «Comprar» y mantiene abierto el carrito.
-- Los cierres son inmediatos; solo se anima la apertura.
+- The product dialog and cart are mutually exclusive. Adding from the product dialog updates the counter and keeps the dialog open.
+- “Buy” is disabled when the cart is empty. The notice preserves the items and subtotal.
+- Dialogs use `showModal()` and `useModalDialog` to manage opening and Tab focus cycling. Closing a dialog returns focus to the control that opened it.
+- While the notice is open, cart content is marked `inert`. Closing the notice explicitly returns focus to “Buy” and keeps the cart open.
+- Closing is immediate; only opening is animated.
 
-## Idiomas y contenido
+## Languages and content
 
-[messages.ts](./src/i18n/messages.ts) centraliza los textos traducibles: navegación, categorías, productos, textos alternativos, avisos y etiquetas accesibles.
+[messages.ts](./src/i18n/messages.ts) centralizes translatable copy: navigation, categories, products, alternative text, notices, and accessible labels.
 
-- El idioma predeterminado es español. Solo el valor almacenado `en` activa inglés; otro valor o un error de lectura vuelve a español.
-- `LocaleProvider` actualiza `document.documentElement.lang`.
-- Los precios usan `Intl.NumberFormat` con `es-MX` o `en-US`, moneda `MXN` y `currencyDisplay: 'code'`, sin decimales.
-- Los IDs son independientes del idioma. `DAILY CLUB`, `THE DAILY EDIT / VOL. 01` y `NEW` conservan su texto de marca.
+- Spanish is the default language. Only the stored value `en` enables English; any other value or a read error falls back to Spanish.
+- `LocaleProvider` updates `document.documentElement.lang`.
+- Prices use `Intl.NumberFormat` with `es-MX` or `en-US`, currency `MXN`, and `currencyDisplay: 'code'`, without decimals.
+- IDs are independent of language. `DAILY CLUB`, `THE DAILY EDIT / VOL. 01`, and `NEW` retain their brand wording.
 
-Las URLs del creador están en [ProfileLinks.tsx](./src/components/ProfileLinks.tsx); etiquetas y créditos traducibles, en `messages.ts`.
+Creator URLs are in [ProfileLinks.tsx](./src/components/ProfileLinks.tsx); translatable labels and credits are in `messages.ts`.
 
-## Estilos, imágenes y movimiento
+## Styles, images, and motion
 
-### Diseño adaptable
+### Responsive layout
 
-Los CSS Modules acompañan a cada componente. [global.css](./src/styles/global.css) define paleta, escalas y foco visible. Archivo e Instrument Serif Italic se cargan desde Google Fonts con `display=swap` y familias de respaldo.
+CSS Modules sit alongside each component. [global.css](./src/styles/global.css) defines the palette, scales, and visible focus styles. Archivo and Instrument Serif Italic load from Google Fonts with `display=swap` and fallback font families.
 
-El breakpoint principal es `64rem`: el catálogo pasa de dos a cuatro columnas y el hero adopta dos campos. Por debajo, la cabecera usa un menú hamburguesa con panel lateral de `50vw`. Se cierra mediante sus controles, Escape, enlaces o interacción fuera de la cabecera.
+The main breakpoint is `64rem`: the catalog changes from two to four columns, and the hero adopts a two-part layout. Below that breakpoint, the header uses a hamburger menu with a `50vw` side panel. It closes through its controls, Escape, links, or interaction outside the header.
 
-### Recursos gráficos
+### Image assets
 
-Las 16 imágenes WebP están en [public/images](./public/images), todas de 1086 × 1448 píxeles. Las URLs se construyen con `import.meta.env.BASE_URL` y `encodeURIComponent`.
+The 16 WebP images are in [public/images](./public/images), all at 1086 × 1448 pixels. URLs are built with `import.meta.env.BASE_URL` and `encodeURIComponent`.
 
-| Recursos | Uso |
+| Assets | Usage |
 | --- | --- |
-| `P01…P12` | Catálogo, ficha y miniaturas del carrito. |
-| `Look-01-cafe-de-paso.webp` | Hero, Look 01 y escena de café en El club. |
-| `Look-02-lado-B.webp` | Look 02 y escena de discos en El club. |
-| `Look-03-sin-prisa.webp` | Look 03 y escena de paseo en El club. |
-| `retrato.webp` | Retrato superpuesto del hero. |
+| `P01…P12` | Catalog, product dialog, and cart thumbnails. |
+| `Look-01-cafe-de-paso.webp` | Hero, Look 01, and the coffee scene in The club. |
+| `Look-02-lado-B.webp` | Look 02 and the record shop scene in The club. |
+| `Look-03-sin-prisa.webp` | Look 03 and the walking scene in The club. |
+| `retrato.webp` | Overlapping hero portrait. |
 
-P01 y P02 usan una raya larga `—` (U+2014) entre el ID y el nombre del archivo. Mantenerla o actualizar sus referencias.
+P01 and P02 use an em dash `—` (U+2014) between the ID and the rest of the filename. Preserve it or update the references accordingly.
 
-La foto principal del hero tiene prioridad alta; catálogo, looks, club y diálogos usan carga diferida. Las prendas usan `object-fit: contain`; las editoriales, `cover`. Las miniaturas del carrito son de 60 × 80 píxeles en móvil y 72 × 96 desde `64rem`.
+The main hero photograph has high loading priority; catalog, looks, club, and dialog images use lazy loading. Garment images use `object-fit: contain`; editorial images use `cover`. Cart thumbnails are 60 × 80 pixels on mobile and 72 × 96 pixels from `64rem` upward.
 
-### Movimiento y accesibilidad
+### Motion and accessibility
 
-[motion.css](./src/styles/motion.css) define entradas del hero, transiciones de filtros y looks, aperturas de diálogos y pulso del contador. [useReveal.ts](./src/motion/useReveal.ts) comparte un `IntersectionObserver` para las apariciones al desplazarse.
+[motion.css](./src/styles/motion.css) defines hero entrances, filter and look transitions, dialog openings, and the cart counter pulse. [useReveal.ts](./src/motion/useReveal.ts) shares an `IntersectionObserver` for scroll reveals.
 
-Las animaciones decorativas se habilitan con `prefers-reduced-motion: no-preference`. Con movimiento reducido, el cambio de look es inmediato. Si las APIs de aparición no están disponibles, el contenido permanece visible. El hover se limita a dispositivos con puntero fino; la estrella del hero es estática.
+Decorative animations are enabled with `prefers-reduced-motion: no-preference`. With reduced motion, look changes are immediate. Content remains visible if the reveal APIs are unavailable. Hover effects are limited to devices with a fine pointer; the hero star is static.
 
-La interfaz incluye nombres accesibles para diálogos, textos alternativos, foco visible y estados como `aria-pressed` y `aria-expanded`.
+The interface includes accessible dialog names, alternative text, visible focus, and states such as `aria-pressed` and `aria-expanded`.
 
-## Build y despliegue
+## Build and deployment
 
 ```bash
 npm run build
 npm run preview
 ```
 
-Publicar el contenido de `dist/` en un hosting estático, incluidas las imágenes copiadas desde `public/`. `npm run preview` permite revisar ese build localmente. No hay servicios de aplicación ni secretos que configurar.
+Publish the contents of `dist/` to a static host, including images copied from `public/`. `npm run preview` lets you review that build locally. There are no application services or secrets to configure.
 
-La configuración actual no define `base`. Para alojar el sitio en una subruta, configurarla en [vite.config.ts](./vite.config.ts) antes de compilar:
+The current configuration does not set `base`. To host the site under a subpath, configure it in [vite.config.ts](./vite.config.ts) before building:
 
 ```ts
 import react from '@vitejs/plugin-react'
@@ -317,46 +316,38 @@ export default defineConfig({
 })
 ```
 
-Sustituir `/daily-club/` por la ruta real del hosting. Las imágenes ya respetan esa base. Las anclas pertenecen a la misma página y no requieren reglas de rutas adicionales. Google Fonts sigue siendo una solicitud externa en tiempo de ejecución.
+Replace `/daily-club/` with the actual hosting path. Image URLs already respect this base. Anchors target the same page and do not require additional routing rules. Google Fonts remains an external request at runtime.
 
-## Verificación
+## Verification
 
 ```bash
 npm run build
 npm run lint
 ```
 
-**Última comprobación local: 11 de octubre de 2026.** El build finalizó correctamente. Oxlint terminó sin errores y con cinco advertencias: tres `react/only-export-components` en `ProfileLinks`, `CartProvider` y `LocaleProvider`, y dos `react/set-state-in-effect` en `ProductDialog` y `CartPanel`.
+There is no `test` script or dedicated automated test suite. The build and linter do not replace these interactive checks:
 
-No hay un script `test` ni una suite automatizada propia. La compilación y el linter no sustituyen estas comprobaciones interactivas:
-
-| Área | Comprobación manual |
+| Area | Manual check |
 | --- | --- |
-| Composición | Móvil y escritorio a ambos lados de `64rem`; navegación por anclas. |
-| Menú móvil | Botones, Escape, enlaces, pulsación fuera y enlaces del creador. |
-| Colección y looks | Todos los filtros y looks; fichas desde tarjetas, puntos y lista de prendas. |
-| Carrito | Añadir repetidos, cantidades, eliminar, subtotal, vacío y recarga. |
-| Persistencia | JSON ilegible, IDs desconocidos, cantidades inválidas y almacenamiento no disponible. |
-| Diálogos | Tab, Shift+Tab, Escape y restauración del foco; el aviso debe conservar el carrito. |
-| Idiomas | Cambiar ES/EN con estados activos; nombres largos y restauración tras recargar. |
-| Movimiento | Activar movimiento reducido y comprobar contenido y controles. |
+| Layout | Mobile and desktop on both sides of `64rem`; anchor navigation. |
+| Mobile menu | Buttons, Escape, links, outside clicks, and creator links. |
+| Collection and looks | All filters and looks; product dialogs from cards, hotspots, and the garment list. |
+| Cart | Repeated additions, quantities, removal, subtotal, empty state, and reload. |
+| Persistence | Unreadable JSON, unknown IDs, invalid quantities, and unavailable storage. |
+| Dialogs | Tab, Shift+Tab, Escape, and focus restoration; the notice must preserve the cart. |
+| Languages | Switch ES/EN with active state; long names and restoration after reload. |
+| Motion | Enable reduced motion and check content and controls. |
 
-## Mantenimiento y documentación
+## Maintenance
 
-| Cambio | Ubicación |
+| Change | Location |
 | --- | --- |
-| Precio, categoría o fotografía de producto | [src/data/products.ts](./src/data/products.ts) |
-| Composición y fotografía de un look | [src/data/looks.ts](./src/data/looks.ts) |
-| Copy y traducciones | [src/i18n/messages.ts](./src/i18n/messages.ts) |
-| Persistencia del carrito | [src/cart/storage.ts](./src/cart/storage.ts) |
-| Paleta, fuentes y escalas | [src/styles/global.css](./src/styles/global.css) e [index.html](./index.html) |
-| Animaciones | [src/styles/motion.css](./src/styles/motion.css) y [src/motion/useReveal.ts](./src/motion/useReveal.ts) |
-| URLs del creador | [src/components/ProfileLinks.tsx](./src/components/ProfileLinks.tsx) |
+| Product price, category, or photograph | [src/data/products.ts](./src/data/products.ts) |
+| Look composition and photograph | [src/data/looks.ts](./src/data/looks.ts) |
+| Copy and translations | [src/i18n/messages.ts](./src/i18n/messages.ts) |
+| Cart persistence | [src/cart/storage.ts](./src/cart/storage.ts) |
+| Palette, fonts, and scales | [src/styles/global.css](./src/styles/global.css) and [index.html](./index.html) |
+| Animations | [src/styles/motion.css](./src/styles/motion.css) and [src/motion/useReveal.ts](./src/motion/useReveal.ts) |
+| Creator URLs | [src/components/ProfileLinks.tsx](./src/components/ProfileLinks.tsx) |
 
-Este README describe la ejecución, arquitectura y comportamiento actuales. Los documentos `Daily*.md` se conservan como material interno de desarrollo:
-
-- [Daily-Club-CONCEPT.md](./Daily-Club-CONCEPT.md): identidad, dirección visual, productos y continuidad de los looks.
-- [Daily-Club-TECH.md](./Daily-Club-TECH.md): especificación técnica y alcance de implementación.
-- [Daily-Club-CONTEXT.md](./Daily-Club-CONTEXT.md): contexto de traspaso y decisiones de desarrollo.
-
-**Creador:** Donovan · [LinkedIn](https://www.linkedin.com/in/donovan-a-83b7ba3a2/) · [GitHub](https://github.com/Donovan-Nudrak/) · [Portafolio](https://nudrak.dev)
+**Creator:** Donovan · [LinkedIn](https://www.linkedin.com/in/donovan-a-83b7ba3a2/) · [GitHub](https://github.com/Donovan-Nudrak/) · [Portfolio](https://nudrak.dev)
