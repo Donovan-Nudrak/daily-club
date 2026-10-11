@@ -304,19 +304,19 @@ npm run preview
 
 Publish the contents of `dist/` to a static host, including images copied from `public/`. `npm run preview` lets you review that build locally. There are no application services or secrets to configure.
 
-The current configuration does not set `base`. To host the site under a subpath, configure it in [vite.config.ts](./vite.config.ts) before building:
+Production is hosted at [daily-club.nudrak.dev](https://daily-club.nudrak.dev/) through GitHub Pages. [vite.config.ts](./vite.config.ts) explicitly sets `base: '/'`, because this custom domain serves the application from its root.
 
-```ts
-import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+[The deployment workflow](./.github/workflows/deploy.yml) runs `npm run build` and publishes `dist/` on pushes to `main` or a manual workflow run. It uses the same base as the local build. Do not build with `--base /daily-club/` for the custom domain: that makes the browser request JavaScript and CSS from nonexistent `/daily-club/assets/` URLs, resulting in a blank page.
 
-export default defineConfig({
-  plugins: [react()],
-  base: '/daily-club/',
-})
+If hosting moves to a project subpath such as `https://<username>.github.io/daily-club/`, update `base` to `/daily-club/` before deploying. For a one-off local build of that alternative:
+
+```bash
+npm run build -- --base /daily-club/
 ```
 
-Replace `/daily-club/` with the actual hosting path. Image URLs already respect this base. Anchors target the same page and do not require additional routing rules. Google Fonts remains an external request at runtime.
+Image URLs already respect this base. Anchors target the same page and do not require additional routing rules. Google Fonts remains an external request at runtime.
+
+After changing the hosting domain or base path, rebuild and redeploy; the paths are embedded in the generated HTML and JavaScript. To diagnose a blank page, check that the script and stylesheet URLs in `dist/index.html` return HTTP 200 with JavaScript and CSS content types on the deployed host.
 
 ## Verification
 
