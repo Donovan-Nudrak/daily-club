@@ -1,0 +1,220 @@
+/* Entrances only when motion is allowed. Without these rules, content stays visible. */
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-hero='title'],
+  [data-hero='phrase'],
+  [data-hero='promise'],
+  [data-hero='cta'] {
+    animation: hero-rise 560ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  [data-hero='phrase'] {
+    animation-delay: 80ms;
+    animation-duration: 520ms;
+  }
+
+  [data-hero='promise'] {
+    animation-delay: 130ms;
+    animation-duration: 520ms;
+  }
+
+  [data-hero='cta'] {
+    animation-delay: 190ms;
+    animation-duration: 500ms;
+  }
+
+  [data-hero='photo'] {
+    animation: fade-in 700ms ease backwards;
+  }
+
+  [data-hero='portrait'] {
+    animation: fade-in 480ms ease 220ms backwards;
+  }
+
+  [data-reveal='hidden'] {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  [data-reveal='shown'] {
+    animation: reveal-rise 640ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  [data-reveal='shown'][data-delay='1'] {
+    animation-delay: 90ms;
+  }
+
+  [data-stagger-group][data-reveal='hidden'] {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-stagger-group][data-reveal='hidden'] [data-stagger] {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  [data-stagger-group][data-reveal='shown'] {
+    animation: none;
+  }
+
+  [data-stagger-group][data-reveal='shown'] [data-stagger] {
+    animation: reveal-rise 500ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: calc(var(--stagger, 0) * 50ms);
+  }
+
+  [data-results] {
+    animation: fade-in 240ms ease backwards;
+  }
+
+  [data-look-fade] {
+    transition: opacity 140ms ease;
+  }
+
+  [data-look-phase='out'] {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  [data-pieces-enter] > li {
+    animation: reveal-rise 420ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: calc(var(--stagger, 0) * 45ms);
+  }
+
+  [data-motion='drawer'][open] {
+    animation: drawer-in 320ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  [data-motion='pop'][open] {
+    animation: pop-in 280ms ease backwards;
+  }
+
+  [data-motion='drawer'][open]::backdrop,
+  [data-motion='pop'][open]::backdrop {
+    animation: fade-in 280ms ease backwards;
+  }
+
+  [data-pulse] {
+    animation: count-pop 360ms ease;
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes drawer-in {
+  from {
+    opacity: 0;
+    transform: translateX(1.25rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes count-pop {
+  0% {
+    transform: scale(1);
+  }
+
+  40% {
+    transform: scale(1.18);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-hover='solid']:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--color-text) 84%, white);
+  }
+
+  [data-hover='circle']:hover {
+    background: var(--color-text);
+    color: var(--color-bg);
+  }
+
+  [data-hover='ghost']:hover:not([aria-pressed='true']) {
+    background: var(--color-bg-muted);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-hover='solid'],
+  [data-hover='circle'],
+  [data-hover='ghost'] {
+    transition:
+      transform 160ms ease,
+      background-color 160ms ease,
+      color 160ms ease;
+  }
+
+  [data-hover='solid']:hover:not(:disabled),
+  [data-hover='circle']:hover,
+  [data-hover='ghost']:hover:not([aria-pressed='true']) {
+    transform: translateY(-1px);
+  }
+
+  [data-hover='solid']:active:not(:disabled),
+  [data-hover='circle']:active,
+  [data-hover='ghost']:active:not([aria-pressed='true']) {
+    transform: none;
+  }
+
+  [data-zoom] img {
+    transform: scale(0.97);
+    transition: transform 340ms ease;
+  }
+
+  [data-zoom]:hover img,
+  [data-zoom]:focus-visible img {
+    transform: scale(1);
+  }
+}

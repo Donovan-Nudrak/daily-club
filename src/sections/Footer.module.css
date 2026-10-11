@@ -1,0 +1,103 @@
+.footer {
+  display: grid;
+  gap: var(--space-lg);
+  padding: var(--space-xl) var(--space-md);
+  border-top: 1px solid var(--color-silver);
+  background: var(--color-bg);
+}
+
+.wordmark {
+  color: inherit;
+  font-size: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+  font-weight: var(--weight-heading);
+  font-stretch: var(--stretch-condensed);
+  line-height: 0.9;
+  text-decoration: none;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm) var(--space-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.links a {
+  font-size: var(--text-sm);
+  font-stretch: var(--stretch-normal);
+  font-weight: var(--weight-emphasis);
+  text-decoration: none;
+}
+
+.note {
+  margin: 0;
+  max-width: 28rem;
+  color: color-mix(in srgb, var(--color-text) 72%, white);
+  font-size: var(--text-sm);
+  font-stretch: var(--stretch-normal);
+}
+
+.credit {
+  display: grid;
+  justify-items: start;
+  gap: 0.35rem;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-silver);
+}
+
+.creator,
+.prompt {
+  margin: 0;
+}
+
+.creator {
+  font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.6rem);
+  font-weight: var(--weight-heading);
+  font-stretch: var(--stretch-condensed);
+  line-height: 0.95;
+}
+
+.prompt {
+  margin-bottom: var(--space-sm);
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 1rem + 0.6vw, 1.55rem);
+  font-style: italic;
+  font-weight: var(--weight-regular);
+  line-height: 1.2;
+}
+
+.profiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.profiles a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--color-text);
+  font-size: var(--text-sm);
+  font-stretch: var(--stretch-normal);
+  font-weight: var(--weight-emphasis);
+  text-decoration: none;
+}
+
+.icon {
+  display: block;
+  width: 1.15rem;
+  height: 1.15rem;
+  flex-shrink: 0;
+}
+
+@media (min-width: 64rem) {
+  .footer {
+    padding-inline: var(--space-xl);
+  }
+}

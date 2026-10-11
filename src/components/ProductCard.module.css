@@ -1,0 +1,68 @@
+.card {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.mediaButton {
+  display: block;
+  aspect-ratio: 3 / 4;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: var(--color-bg-muted);
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.mediaButton img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.placeholder {
+  padding: 0.7rem;
+  color: color-mix(in srgb, var(--color-text) 58%, white);
+  font-size: 0.75rem;
+  font-weight: var(--weight-emphasis);
+  font-stretch: var(--stretch-normal);
+  letter-spacing: 0.03em;
+}
+
+.body {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.name {
+  font-size: var(--text-base);
+  line-height: 1.1;
+}
+
+.meta {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text) 78%, white);
+  font-size: var(--text-sm);
+  font-stretch: var(--stretch-normal);
+  font-weight: var(--weight-regular);
+}
+
+.open {
+  justify-self: end;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid var(--color-text);
+  border-radius: 50%;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
